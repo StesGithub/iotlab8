@@ -1,4 +1,4 @@
-# IoT Assignment Week 5 LED server + encrypted temperature 
+# IoT Assignment Week 8 
 # Stephen Thompson C21394693
 # Lukas Vaiciulaitis C21522836
 
@@ -29,6 +29,7 @@ wifi.active(True)
 ssid = "blep"
 password = "12345678"
 
+# wifi connection logic
 def connect(wifi_obj, ssid, password, timeout=10):
     print(f"trying to connect to wifi")
     wifi_obj.connect(ssid, password)
@@ -52,11 +53,6 @@ def mosquitto(timer):
 # temperature setup
 temp_sensor = ADC(4)  # built in temp sensor
 
-# pad data to 16 byes
-def pad128(data):
-    while len(data) < 16:
-        data += b' '
-    return data[:16]
 
 # read temp from sensor
 def read_temp():
@@ -67,7 +63,7 @@ def read_temp():
 
 
 
-
+#try connecting to wifi and then run mqtt
 try:
     is_connected = connect(wifi, ssid, password)
     if is_connected:

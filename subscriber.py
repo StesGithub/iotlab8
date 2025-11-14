@@ -28,10 +28,12 @@ def connect(wifi_obj, ssid, password, timeout=10):
     return False
 
 
+#mqtt setup
 HOSTNAME = '10.154.161.13'
 PORT = 1883
 TOPIC = b'temp/pico'
 
+#mqtt client
 mqtt = umqtt.MQTTClient(
     client_id = b'subscriber',
     server = HOSTNAME.encode(),
@@ -39,6 +41,7 @@ mqtt = umqtt.MQTTClient(
     keepalive = 7000
 )
 
+#callback function for when message is received
 def callback(topic, message):
     print(f"I received the message \"{message}\" for topic \"{topic}\"")
     temp_check = float(message)
@@ -51,9 +54,10 @@ def callback(topic, message):
 
     
 
-print("hello")
+#returns bool 
 is_connected = connect(wifi, ssid, password)
 
+# allows mqtt to connect if wifi is connected
 if is_connected:
     mqtt.connect()
 
