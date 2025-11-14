@@ -7,14 +7,15 @@ from network import WLAN
 import time, socket, cryptolib
 import umqtt.simple as umqtt
 
-
+# Initialise timer
 timer = Timer()
 
-
+#variables for mqtt 
 HOSTNAME = '10.154.161.13'
 PORT = 1883
 TOPIC = b'temp/pico'
 
+#create mqtt instance
 mqtt = umqtt.MQTTClient(
     client_id = b'publish',
     server = HOSTNAME.encode(),
@@ -42,7 +43,7 @@ def connect(wifi_obj, ssid, password, timeout=10):
         timeout -= 1
     return False
 
-
+#Read temperature and publish to mqtt
 def mosquitto(timer):
     global mqtt
     temp = read_temp()
