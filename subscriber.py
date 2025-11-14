@@ -4,6 +4,7 @@ import time, socket, cryptolib
 import umqtt.simple as umqtt
 
 
+#Define LED instance for on board LED
 led = Pin("LED", Pin.OUT)
 
 
@@ -44,8 +45,11 @@ mqtt = umqtt.MQTTClient(
 #callback function for when message is received
 def callback(topic, message):
     print(f"I received the message \"{message}\" for topic \"{topic}\"")
+    
+    #ensure message is a float 
     temp_check = float(message)
 
+    # if temperature is too high turn on the led
     if temp_check > 25.0:
         print("temp too high — turning LED ON")
         led.on()

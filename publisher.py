@@ -1,7 +1,3 @@
-# IoT Assignment Week 8 
-# Stephen Thompson C21394693
-# Lukas Vaiciulaitis C21522836
-
 from machine import Pin, PWM, Timer, ADC
 from network import WLAN
 import time, socket, cryptolib
