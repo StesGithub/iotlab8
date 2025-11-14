@@ -10,7 +10,6 @@ wifi = WLAN(WLAN.IF_STA)
 wifi.active(True)
 ssid = "StepheniPhone"
 password = "12345678"
-port_number = 80
 
 #Connect to wifi
 def connect(wifi_obj, ssid, password, timeout=10):
@@ -32,7 +31,7 @@ PORT = 1883
 TOPIC = 'temp/pico'
 
 mqtt = umqtt.MQTTClient(
-    client_id = b'publish',
+    client_id = b'subscriber',
     server = HOSTNAME.encode(),
     port = PORT,
     keepalive = 7000
@@ -40,10 +39,22 @@ mqtt = umqtt.MQTTClient(
 
 def callback(topic, message):
     
-    print(f'I received the message "{message}" for topic "{topic}"') 
+    print(f'I received the message "{message}" for topic "{topic}"')
+    if float(message) > 25:
+        print("this is where we blink")
     
     
-mqtt.connect()
+    
+try:
+    is_connected = connect(wifi, ssid, password)
+    if is_connected:
+        mqtt.connect()
+        mqtt.set_callback(callback)
+        mqtt.subscribe(TOPIC)
+        while True:
+            mqtt.wait_msg()
+except:
+    print("no wifi")
 
-mqtt.set_callback(callback)
-mqtt.wait_msg()
+    
+
