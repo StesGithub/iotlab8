@@ -1,5 +1,0 @@
-Traceback (most recent call last):
-  File "<stdin>", line 277, in <module>
-  File "<stdin>", line 246, in main
-  File "/lib/umqtt/simple.py", line 58, in connect
-OSError: [Errno 103] ECONNABORTED
