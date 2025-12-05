@@ -1,0 +1,17 @@
+syntax = "proto2";
+
+package iot;
+
+// A simple time-of-day
+message Time {
+  required uint32 hour   = 1;  // 0–23
+  required uint32 minute = 2;  // 0–59
+  required uint32 second = 3;  // 0–59
+}
+
+// Payload sent over MQTT
+message TempReading {
+  required string publisher_id = 1;  // e.g. "pico-1"
+  required float  temperature  = 2;  // °C
+  required Time   time         = 3;  // hour/min/sec
+}
